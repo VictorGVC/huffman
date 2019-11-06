@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-//#include <bits/stdc++.h>
 
 struct tree
 {
@@ -28,7 +27,7 @@ typedef struct fila Fila;
 
 void InitF(desc *f)
 {
-	(f) -> ini = (f) -> fim = NULL;
+	f -> ini = f -> fim = NULL;
 }
 
 void CriaNo(Tree **t,char info)
@@ -45,6 +44,7 @@ void criaF(Fila **f,Tree *t,int freq)
 	novo -> info = t;
 	novo -> freq = freq;
 	novo -> prox = NULL;
+	*f = novo;
 }
 
 void InsereF(desc *d,Tree *t,int f)
@@ -102,7 +102,7 @@ void retiraF(Tree **t,int *freq,desc *d)
 
 char faltaUm(desc d)
 {
-	return d.ini -> prox == NULL;  
+	return d.fim -> prox == NULL;  
 }
 
 void juntaTree(Tree **raiz,Tree *t1,Tree *t2)
@@ -118,14 +118,12 @@ char vaziaTree(Tree *t)
 	return t == NULL;
 }
 
-void CriaHuffman(Tree **raiz,char str[30])
+void CriaHuffman(Tree **raiz,char str[])
 {
-	
 	desc d;
 	InitF(&d);
 	Tree *t;
 	Tree *auxt1,*auxt2;
-	
 	int i,j,freq,auxf1,auxf2;
 	
 	for(i = 0;i < strlen(str);i++)
@@ -137,7 +135,7 @@ void CriaHuffman(Tree **raiz,char str[30])
 			{
 				if(str[i] == str[j])
 				{
-					strcpy(str,"-");
+					str[j] = '-';
 					freq++;
 				}
 			}	
@@ -188,6 +186,8 @@ void ExibeHoffman(Tree *t,char str[])
 int main()
 {
 	Tree *raiz;
-	CriaHuffman(&raiz,"111223445");
-	ExibeHoffman(raiz,"111101100010");
+	char str[] = "111223445";
+	char str2[] = "111101100010";
+	CriaHuffman(&raiz,str);
+	ExibeHoffman(raiz,str2);
 }
